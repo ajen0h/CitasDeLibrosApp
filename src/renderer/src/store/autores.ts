@@ -9,10 +9,7 @@ interface Store {
 
 export const useAutoresStore = create<Store>((set) => ({
 
-    autores: [{
-        id: `dfasda-daa-dasda-dsqw-12dac`,
-        name: "Yo"
-    }],
+    autores: [],
     initAutores: (values: Autor[]) => set({ autores: values }),
     setAutores: (value: Autor) => set((state) => ({ autores: [...state.autores, value] }))
 

@@ -1,5 +1,5 @@
 import { useCitasStore } from "@/store/citas"
-import { useParams } from "react-router-dom"
+import {  useParams } from "react-router-dom"
 
 export default function Libro() {
     const params = useParams()

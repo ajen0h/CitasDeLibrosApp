@@ -1,4 +1,4 @@
-import { Routes, Route, Link } from "react-router-dom"
+import { Routes, Route, Link, HashRouter as Router } from "react-router-dom"
 import Home from "./components/Home/Home"
 import Autores from "./components/Autores/Autores"
 import { useEffect } from "react"
@@ -38,21 +38,23 @@ function App() {
 
 
   return (
-    <div className="p-8">
-      <nav>
-        <Link to="/">Citas</Link>
-        <Link to="/autores">Autores</Link>
-        <Link to="/libros">Libros</Link>
-      </nav>
+    <Router>
+      <div className="p-8">
+        <nav>
+          <Link to="/">Citas</Link>
+          <Link to="/autores">Autores</Link>
+          <Link to="/libros">Libros</Link>
+        </nav>
 
-        <Routes>
+        <Routes >
           <Route path="/" element={<Home />} />
           <Route path="/autores" element={<Autores />} />
           <Route path="/autores/:id" element={<Autor />} />
           <Route path="/libros" element={<Libros />} />
           <Route path="/libros/:id/:titulo" element={<Libro />} />
         </Routes>
-    </div>
+      </div>
+    </Router>
   )
 }
 
