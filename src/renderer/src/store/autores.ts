@@ -7,7 +7,7 @@ interface Store {
     initAutores: (values: Autor[]) => void
 }
 
-export const useAutoresStore = create<Store>((set, get) => ({
+export const useAutoresStore = create<Store>((set) => ({
 
     autores: [{
         id: `dfasda-daa-dasda-dsqw-12dac`,

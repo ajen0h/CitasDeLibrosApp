@@ -7,7 +7,7 @@ interface Store {
     initCitas: (values: Citas[]) => void
 }
 
-export const useCitasStore = create<Store>((set, get) => ({
+export const useCitasStore = create<Store>((set) => ({
 
     citas: [],
     initCitas: (values: Citas[]) => set({ citas: values }),

@@ -7,7 +7,7 @@ interface Store {
     initLibros: (values: Libro[]) => void
 }
 
-export const useLibrosStore = create<Store>((set, get) => ({
+export const useLibrosStore = create<Store>((set) => ({
     libros: [],
     initLibros: (values: Libro[]) => set({ libros: values }),
     setLibros: (value: Libro) => set((state) => ({ libros: [...state.libros, value] }))

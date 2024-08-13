@@ -33,7 +33,6 @@ export function FormCitas() {
   const autores = useAutoresStore((state) => state.autores)
 
   const setCitas = useCitasStore((state) => state.setCitas)
-  const citas = useCitasStore((state) => state.citas)
 
 
   const [autorId, setAutorId] = useState("")
