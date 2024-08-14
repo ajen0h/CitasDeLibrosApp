@@ -63,17 +63,14 @@ export default function Libro() {
 
 
     }
-
-
-
     return (
         <div>
-            <div className="flex lg:flex-row flex-col lg:items-center items-start lg:justify-between gap-5 ">
-                <div className="flex flex-row items-center gap-5"> 
-                    <BookMarked className="size-10 p-2 rounded-full text-black bg-white" />
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-5 ">
+                <div className="flex flex-row items-center gap-5">
+                    <BookMarked className=" size-10 p-2 rounded-full text-black bg-white" />
                     <h1 className="text-3xl lg:text-4xl font-bold">Libros de {params.titulo}</h1>
                 </div>
-            <AlertDelete name="Borrar libro" title="¿Estas a punto de borrar este libro?" description="Al borrar el libro también se borrarán todas sus citas" handleDelete={handleDeleteLibro} />
+                <AlertDelete name="Borrar libro" title="¿Estas a punto de borrar este libro?" description="Al borrar el libro también se borrarán todas sus citas" handleDelete={handleDeleteLibro} />
             </div>
 
             <section className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
@@ -84,8 +81,8 @@ export default function Libro() {
                         const autor = libro ? autoresMap.get(libro.autorId) : null;
                         return (
                             <>
-                                <div key={cita.id} className="mt-5 text-black rounded-xl shadow-xl p-4 flex flex-col justify-between gap-5 bg-slate-100">
-                                    <p className="font-bold text-xl overflow-y-auto h-[135px] text-start">{cita.cita}</p>
+                                <div key={cita.id} className="mt-5 text-black rounded-lg shadow-xl p-4 flex flex-col justify-between gap-2 bg-slate-100">
+                                    <p className="font-bold text-xl overflow-y-auto h-[125px] text-start">{cita.cita}</p>
                                     <div className=" flex justify-between items-center">
                                         <div>
                                             <p className="italic opacity-85 text-sm flex flex-row gap-2 items-center"><BookOpen className="size-4" /> {libro ? libro.titulo : 'No disponible'}</p>
@@ -93,6 +90,9 @@ export default function Libro() {
                                         </div>
                                         <p className="italic opacity-85 text-sm">Página {cita ? cita.pagina : 'No disponible'}</p>
                                     </div>
+
+
+
                                     <AlertDelete title="¿Quieres borrar esta cita?" description="" name="Borrar cita" handleDelete={() => handleDeleteCita(cita.id)} />
 
                                 </div>

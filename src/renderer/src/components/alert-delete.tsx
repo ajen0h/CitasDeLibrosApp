@@ -21,7 +21,7 @@ export function AlertDelete({ name, title, description, handleDelete }: AlertDel
         <AlertDialog>
             <AlertDialogTrigger asChild>
 
-                <Button variant={"default"} className="bg-white text-black hover:bg-orange-400 hover:text-white transition-all">
+                <Button variant={"default"} className=" bg-white text-black hover:bg-orange-400 hover:text-white transition-all">
                     <div className="flex flex-row items-center gap-2" >
                         <Trash className="size-4"/>
                         {name}
