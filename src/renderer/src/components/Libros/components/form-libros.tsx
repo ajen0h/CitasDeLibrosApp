@@ -23,12 +23,14 @@ import { libroSchema } from "@/schema"
 import { useAutoresStore } from "@/store/autores"
 import { useLibrosStore } from "@/store/libros"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import toast from "react-hot-toast"
 
 
 export function FormLibros() {
 
 
     const setLibros = useLibrosStore((state) => state.setLibros)
+    const libros = useLibrosStore((state) => state.libros)
     const autores = useAutoresStore((state) => state.autores)
 
     // 1. Define your form.
@@ -42,6 +44,16 @@ export function FormLibros() {
 
     // 2. Define a submit handler.
     function onSubmit(values: z.infer<typeof libroSchema>) {
+
+        const libroExist = libros.find(libro => libro.titulo === values.titulo)
+
+        if (libroExist) {
+            form.setError("titulo", {
+                message: "Este libro ya existe"
+            })
+            return
+        }
+
         const libro = {
             id: crypto.randomUUID(),
             titulo: values.titulo,
@@ -53,7 +65,9 @@ export function FormLibros() {
         const librosActualizados = useLibrosStore.getState().libros
 
         localStorage.setItem("libros", JSON.stringify(librosActualizados))
-        form.reset()
+
+        toast.success('El libro ha sido creado')
+        form.setValue("titulo","")
 
     }
 
@@ -61,7 +75,7 @@ export function FormLibros() {
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
-                <Button variant="outline">Show Dialog</Button>
+                <Button variant="ghost" className="items-start justify-start">Añadir un libro</Button>
             </AlertDialogTrigger>
             <AlertDialogContent className='overflow-y-auto'>
                 <AlertDialogHeader>
@@ -100,9 +114,9 @@ export function FormLibros() {
                                             {autores.map(autor => (
                                                 <SelectItem key={autor.id} value={autor.id}>{autor.name}</SelectItem>
                                             ))}
-
                                         </SelectContent>
                                     </Select>
+                                    <FormMessage />
                                 </FormItem>
                             )}
                         />

@@ -65,7 +65,8 @@ export function FormCitas() {
 
     localStorage.setItem("citas", JSON.stringify(citasActualizados))
 
-    form.reset()
+    form.setValue("cita","")
+    form.setValue("pagina","")
 
   }
   const handleSelectChange = (field: any) => {
@@ -76,7 +77,7 @@ export function FormCitas() {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline">Añade Una Cita</Button>
+        <Button variant="ghost" className="items-start justify-start">Añade una cita</Button>
       </AlertDialogTrigger>
       <AlertDialogContent className='overflow-y-auto h-[500px]'>
         <AlertDialogHeader>

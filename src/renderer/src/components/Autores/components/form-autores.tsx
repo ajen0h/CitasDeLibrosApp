@@ -21,12 +21,14 @@ import {
 import { Input } from "@/components/ui/input"
 import { AutorSchema } from "@/schema"
 import { useAutoresStore } from "@/store/autores"
+import toast from "react-hot-toast"
 
 
 export function FormAutores() {
 
 
     const setAutores = useAutoresStore((state) => state.setAutores)
+    const autores = useAutoresStore((state) => state.autores)
 
     // 1. Define your form.
     const form = useForm<z.infer<typeof AutorSchema>>({
@@ -38,6 +40,17 @@ export function FormAutores() {
 
     // 2. Define a submit handler.
     function onSubmit(values: z.infer<typeof AutorSchema>) {
+
+        const autorExists = autores.find(autor => autor.name === values.name)
+
+        if (autorExists) {
+            form.setError("name", {
+                message: "Este autor ya existe!"
+            })
+            return
+        }
+
+
         const autor = {
             id: crypto.randomUUID(),
             name: values.name
@@ -48,13 +61,16 @@ export function FormAutores() {
         const autoresActualizados = useAutoresStore.getState().autores
 
         localStorage.setItem("autores", JSON.stringify(autoresActualizados))
+
+        toast.success('El autor ha sido creado')
+        form.setValue("name", "")
     }
 
 
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
-                <Button variant="outline">Show Dialog</Button>
+                <Button variant="ghost" className="items-start justify-start">Añadir un autor</Button>
             </AlertDialogTrigger>
             <AlertDialogContent className='overflow-y-auto'>
                 <AlertDialogHeader>
@@ -80,12 +96,12 @@ export function FormAutores() {
                         />
 
                         <div className='grid grid-cols-2 gap-2'>
-                            <Button >Añadir Nota</Button>
+                            <Button >Añadir Autores</Button>
                             <AlertDialogCancel>Cancel</AlertDialogCancel>
                         </div>
                     </form>
                 </Form>
-
+               
             </AlertDialogContent>
         </AlertDialog>
     )

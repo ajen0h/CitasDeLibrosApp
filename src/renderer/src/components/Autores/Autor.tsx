@@ -18,7 +18,7 @@ export default function Autor() {
                     </Link>
                 ))}
             </>) : (<p>Todavía no hay libros</p>)}
-
+            
         </div>
     )
 }

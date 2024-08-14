@@ -14,7 +14,9 @@ export const libroSchema = z.object({
     titulo: z.string().min(2, {
         message: "Username must be at least 2 characters.",
     }),
-    autorId: z.string()
+    autorId: z.string().min(2, {
+        message: "Username must be at least 2 characters.",
+    })
 })
 export const AutorSchema = z.object({
     name: z.string().min(2, {
