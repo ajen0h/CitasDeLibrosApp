@@ -4,7 +4,7 @@ import { useAutoresStore } from "@/store/autores"
 import { useCitasStore } from "@/store/citas"
 import toast from "react-hot-toast"
 import { AlertDelete } from "../alert-delete"
-import { CircleUserRound } from "lucide-react"
+import { BookText, CircleUserRound } from "lucide-react"
 
 export default function Autor() {
     const { id } = useParams()
@@ -53,22 +53,28 @@ export default function Autor() {
 
     return (
         <div>
-            <div className="flex lg:flex-row flex-col lg:items-center items-start lg:justify-between gap-5 ">
-                <div className="flex flex-row items-center gap-5"> 
-                    <CircleUserRound className="size-10 p-2 rounded-full text-black bg-white" />
-                    <h1 className="text-3xl lg:text-4xl font-bold">Libros de {autor?.name}</h1>
+            <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-5 ">
+                <div className="grid grid-cols-[60px_1fr] items-center">
+                    <CircleUserRound className=" size-10 p-2 rounded-full text-black bg-white" />
+                    <h1 className="text-3xl font-bold">Libros de {autor?.name}</h1>
                 </div>
                 <AlertDelete title="¿Quieres borrar este Autor?" description="Al borrar un autor también borraras todos sus libros y citas" name="Borrar autor" handleDelete={handleDelete} />
             </div>
+
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+
             {allLibros.length > 0 ? (<>
                 {allLibros.reverse().map(libro => (
                     <Link key={libro.id} to={`/libros/${libro.id}/${libro.titulo}`} >
-                        <article className="mt-5" >
-                            <h1>{libro.titulo}</h1>
-                        </article>
+                        <div className="font-bold mt-5 text-black rounded-lg shadow-xl p-4 grid grid-cols-[50px_1fr] items-center bg-slate-100">
+                            <BookText className="size-8" />
+                            <p className="text-xl font-bold">{libro.titulo}</p>
+                        </div>
                     </Link>
                 ))}
             </>) : (<p className="mt-5">El autor no tiene ninguna libro todavía 📚</p>)}
+                </div>
 
         </div>
     )

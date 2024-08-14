@@ -2,7 +2,7 @@ import { useAutoresStore } from "@/store/autores"
 import { useCitasStore } from "@/store/citas"
 import { useLibrosStore } from "@/store/libros"
 import { BookMarked, BookOpen, UserRoundPen } from "lucide-react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import toast from "react-hot-toast"
 import { AlertDelete } from "../alert-delete"
 
@@ -20,6 +20,8 @@ export default function Libro() {
     const librosMap = new Map(libros.map(libro => [libro.id, libro]));
 
     const allCitas = citas.filter(cita => cita.libroId === params.id)
+
+    const navitage=useNavigate()
 
     const handleDeleteLibro = () => {
 
@@ -42,6 +44,7 @@ export default function Libro() {
 
         toast.success("Libro borrada")
 
+        navitage("/")
     }
 
     const handleDeleteCita = (id: string) => {
@@ -65,10 +68,10 @@ export default function Libro() {
     }
     return (
         <div>
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-5 ">
-                <div className="flex flex-row items-center gap-5">
+            <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-5 ">
+                <div className="grid grid-cols-[60px_1fr] items-center">
                     <BookMarked className=" size-10 p-2 rounded-full text-black bg-white" />
-                    <h1 className="text-3xl lg:text-4xl font-bold">Libros de {params.titulo}</h1>
+                    <h1 className="text-2xl font-bold">Libros de {params.titulo}</h1>
                 </div>
                 <AlertDelete name="Borrar libro" title="¿Estas a punto de borrar este libro?" description="Al borrar el libro también se borrarán todas sus citas" handleDelete={handleDeleteLibro} />
             </div>
@@ -83,24 +86,19 @@ export default function Libro() {
                             <>
                                 <div key={cita.id} className="mt-5 text-black rounded-lg shadow-xl p-4 flex flex-col justify-between gap-2 bg-slate-100">
                                     <p className="font-bold text-xl overflow-y-auto h-[125px] text-start">{cita.cita}</p>
-                                    <div className=" flex justify-between items-center">
-                                        <div>
+                                    <div className="flex justify-between items-center gap-5">
+                                        <div className="flex flex-col gap-2">
                                             <p className="italic opacity-85 text-sm flex flex-row gap-2 items-center"><BookOpen className="size-4" /> {libro ? libro.titulo : 'No disponible'}</p>
                                             <p className="italic opacity-85 text-sm flex flex-row gap-2 items-center"><UserRoundPen className="size-4" /> {autor ? autor.name : 'No disponible'}</p>
                                         </div>
                                         <p className="italic opacity-85 text-sm">Página {cita ? cita.pagina : 'No disponible'}</p>
                                     </div>
-
-
-
                                     <AlertDelete title="¿Quieres borrar esta cita?" description="" name="Borrar cita" handleDelete={() => handleDeleteCita(cita.id)} />
 
                                 </div>
                             </>
                         )
                     })}
-
-
                 </>) : (<p className="mt-5">Este libro todavía no tiene ninguna cita ✒</p>)}
 
             </section>

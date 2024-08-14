@@ -4,7 +4,6 @@ import { useAutoresStore } from "@/store/autores";
 import { BookOpen, SquareLibrary, UserRoundPen } from "lucide-react";
 import toast from "react-hot-toast";
 import { AlertDelete } from "../alert-delete";
-import { Separator } from "../ui/separator";
 
 export default function Home() {
 
@@ -32,7 +31,7 @@ export default function Home() {
             <div className="flex lg:flex-row flex-col lg:items-center items-start lg:justify-between gap-5 ">
                 <div className="flex flex-row items-center gap-5">
                     <SquareLibrary className="size-10 p-2 rounded-full text-black bg-white" />
-                    <h1 className="text-3xl lg:text-4xl font-bold">Todas las citas</h1>
+                    <h1 className="text-3xl font-bold">Todas las citas</h1>
                 </div>
             </div>
 
