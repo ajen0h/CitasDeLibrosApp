@@ -1,15 +1,18 @@
 {
-  "name": "cita-libros",
+  "name": "citas-de-libros",
   "version": "1.0.0",
   "description": "An Electron application with React and TypeScript",
   "main": "./out/main/index.js",
   "author": "example.com",
   "homepage": "https://electron-vite.org",
   "build": {
+    "productName":"Citas de libros",
     "win": {
       "icon": "./resources/icon.ico",
-      "executableName": "Citas de libros",
-      "publisherName": "Citas de libros"
+      "executableName": "Citas_Libros_Setup_1.0.0",
+      "publisherName": "Citas de libros",
+      "target": "nsis",
+      "artifactName": "Citas_Libros_Setup_1.0.0.${ext}"
     }
   },
   "scripts": {
