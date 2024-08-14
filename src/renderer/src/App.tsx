@@ -1,4 +1,4 @@
-import { Routes, Route, Link, HashRouter as Router } from "react-router-dom"
+import { Routes, Route, Link, useLocation } from "react-router-dom"
 import Home from "./components/Home/Home"
 import Autores from "./components/Autores/Autores"
 import { useEffect } from "react"
@@ -8,12 +8,13 @@ import { useLibrosStore } from "./store/libros"
 import { useCitasStore } from "./store/citas"
 import Autor from "./components/Autores/Autor"
 import Libro from "./components/Libros/Libro"
-import { CardSide } from "./components/Autores/components/cart-autores"
-import { BookMarked, CircleUserRound } from "lucide-react"
+import { CardAutores } from "./components/Autores/components/cart-autores"
+import { BookMarked, CircleUserRound, SquareLibrary } from "lucide-react"
 import { FormCitas } from "./components/form-citas"
 import { FormAutores } from "./components/Autores/components/form-autores"
 import { FormLibros } from "./components/Libros/components/form-libros"
 import { Toaster } from "react-hot-toast"
+import { CardLibros } from "./components/Libros/components/cart-libros"
 
 function App() {
   const initAutores = useAutoresStore((state) => state.initAutores)
@@ -46,30 +47,49 @@ function App() {
 
   }, [])
 
-
+  const location = useLocation()
 
   return (
-    <Router>
+    <>
       <div className="h-screen grid grid-cols-[248px_1fr]">
         <div style={{ backgroundColor: "rgba(32, 32, 32)" }} className="overflow-y-auto p-2 border-r border-white/10 ">
           <nav className="flex flex-col gap-1 text-white ">
             <FormCitas />
             <FormAutores />
             <FormLibros />
+
+            <Link to={`/`}>
+              <section className={`${location.pathname === "/" ? 'text-black bg-white' : ''}  rounded-md p-2 hover:bg-white hover:text-black cursor-pointer transition-all`}>
+                <div className="flex flex-row text-sm font-bold gap-2 items-center">
+                  <SquareLibrary className="size-5" />
+                  <p className="truncate w-full">Todas las citas</p>
+                </div>
+              </section>
+            </Link>
+
             <p className="text-sm text-white/70 p-2">Autores</p>
-            {autores.map(autor => (
-              <CardSide key={autor.id} name={autor.name} href={`/autores/${autor.id}`} Icon={CircleUserRound} />
-            ))}
+            {autores.length > 0 ? (<>
+              {autores.map(autor => (
+                <CardAutores key={autor.id} autor={autor} Icon={CircleUserRound} />
+              ))}
+            </>) : (<>
+              <p className="text-[0.7rem] text-white/70 px-2">Todavía no hay autores</p>
+            </>)}
+
 
             <p className="text-sm text-white/70 p-2">Libros</p>
+            {libros.length > 0 ? (<>
+              {libros.map(libro => (
+                <CardLibros key={libro.id} libro={libro} Icon={BookMarked} />
+              ))}
+            </>) : (<>
+              <p className="text-[0.7rem] text-white/70 px-2">Todavía no hay libros</p>
+            </>)}
 
-            {libros.map(libro => (
-              <CardSide key={libro.id} name={libro.titulo} href={`/libros/${libro.id}/${libro.titulo}`} Icon={BookMarked} />
-            ))}
 
           </nav>
         </div>
-        <div className="px-24 bg-black/90 text-white overflow-y-auto" >
+        <div className="px-10 bg-black/90 text-white overflow-y-auto" >
 
           <Routes >
             <Route path="/" element={<Home />} />
@@ -84,7 +104,7 @@ function App() {
         position="top-center"
         reverseOrder={false}
       />
-    </Router>
+    </>
   )
 }
 

@@ -13,8 +13,9 @@ export default function Libros() {
 
   return (
     <div>Libros
+
       <FormLibros />
-      {libros.map(libro => {
+      {libros.reverse().map(libro => {
         const autor = autoresMap.get(libro.autorId);
         return autor ? (
           <Link key={libro.id} to={`/libros/${libro.id}/${libro.titulo}`}>

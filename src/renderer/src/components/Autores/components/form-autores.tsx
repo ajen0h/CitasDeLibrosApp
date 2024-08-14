@@ -22,6 +22,7 @@ import { Input } from "@/components/ui/input"
 import { AutorSchema } from "@/schema"
 import { useAutoresStore } from "@/store/autores"
 import toast from "react-hot-toast"
+import { UserRoundPen } from "lucide-react"
 
 
 export function FormAutores() {
@@ -68,9 +69,14 @@ export function FormAutores() {
 
 
     return (
-        <AlertDialog>
-            <AlertDialogTrigger asChild>
-                <Button variant="ghost" className="items-start justify-start">Añadir un autor</Button>
+        <AlertDialog >
+            <AlertDialogTrigger asChild className="w-full">
+                <Button variant="ghost" className="items-start justify-start p-2">
+                    <div className="flex flex-row gap-2 items-center font-bold">
+                        <UserRoundPen className="size-4" />
+                        Añadir un autor
+                    </div>
+                </Button>
             </AlertDialogTrigger>
             <AlertDialogContent className='overflow-y-auto'>
                 <AlertDialogHeader>
@@ -101,7 +107,7 @@ export function FormAutores() {
                         </div>
                     </form>
                 </Form>
-               
+
             </AlertDialogContent>
         </AlertDialog>
     )

@@ -24,6 +24,7 @@ import { useAutoresStore } from "@/store/autores"
 import { useLibrosStore } from "@/store/libros"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import toast from "react-hot-toast"
+import { BookType } from "lucide-react"
 
 
 export function FormLibros() {
@@ -67,15 +68,21 @@ export function FormLibros() {
         localStorage.setItem("libros", JSON.stringify(librosActualizados))
 
         toast.success('El libro ha sido creado')
-        form.setValue("titulo","")
+        form.setValue("titulo", "")
+        form.setValue("autorId", "")
 
     }
 
 
     return (
         <AlertDialog>
-            <AlertDialogTrigger asChild>
-                <Button variant="ghost" className="items-start justify-start">Añadir un libro</Button>
+            <AlertDialogTrigger asChild className="w-full">
+                <Button variant="ghost" className="items-start justify-start p-2">
+                    <div className="flex flex-row gap-2 items-center font-bold">
+                        <BookType className="size-4" />
+                        Añadir un libro
+                    </div>
+                </Button>
             </AlertDialogTrigger>
             <AlertDialogContent className='overflow-y-auto'>
                 <AlertDialogHeader>
@@ -111,9 +118,14 @@ export function FormLibros() {
                                             </SelectTrigger>
                                         </FormControl>
                                         <SelectContent>
-                                            {autores.map(autor => (
-                                                <SelectItem key={autor.id} value={autor.id}>{autor.name}</SelectItem>
-                                            ))}
+                                            {autores.length > 0 ? (<>
+                                                {autores.map(autor => (
+                                                    <SelectItem key={autor.id} value={autor.id}>{autor.name}</SelectItem>
+                                                ))}
+                                            </>) : (<>
+                                                <p className="text-center text-sm p-2">No hay autores todavía</p>
+                                            </>)}
+
                                         </SelectContent>
                                     </Select>
                                     <FormMessage />

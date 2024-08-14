@@ -25,6 +25,8 @@ import { useLibrosStore } from "@/store/libros"
 import { useAutoresStore } from "@/store/autores"
 import { useState } from "react"
 import { useCitasStore } from "@/store/citas"
+import { PenLine } from "lucide-react"
+import toast from "react-hot-toast"
 
 
 export function FormCitas() {
@@ -65,8 +67,10 @@ export function FormCitas() {
 
     localStorage.setItem("citas", JSON.stringify(citasActualizados))
 
-    form.setValue("cita","")
-    form.setValue("pagina","")
+    toast.success("La cita ha sido creada ")
+
+    form.setValue("cita", "")
+    form.setValue("pagina", "")
 
   }
   const handleSelectChange = (field: any) => {
@@ -76,8 +80,12 @@ export function FormCitas() {
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <Button variant="ghost" className="items-start justify-start">Añade una cita</Button>
+      <AlertDialogTrigger asChild className="">
+        <Button variant="ghost" className="items-start justify-start p-2">
+          <div className="flex flex-row gap-2 items-center font-bold">
+            <PenLine className="size-4" />Añade una cita
+          </div>
+        </Button>
       </AlertDialogTrigger>
       <AlertDialogContent className='overflow-y-auto h-[500px]'>
         <AlertDialogHeader>
@@ -110,7 +118,7 @@ export function FormCitas() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input {...field} placeholder='Página' />
+                      <Input {...field} placeholder='Nº página' />
                     </FormControl>
                   </FormItem>
                 )}
@@ -127,9 +135,14 @@ export function FormCitas() {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {autores.map(autor => (
-                          <SelectItem key={autor.id} value={autor.id}>{autor.name}</SelectItem>
-                        ))}
+                        {autores.length > 0 ? (<>
+                          {autores.map(autor => (
+                            <SelectItem key={autor.id} value={autor.id}>{autor.name}</SelectItem>
+                          ))}
+                        </>) : (<>
+                          <p className="text-center text-sm p-2">No hay autores todavía</p>
+                        </>)}
+
                       </SelectContent>
                     </Select>
                   </FormItem>
@@ -148,12 +161,22 @@ export function FormCitas() {
                       </FormControl>
                       <SelectContent>
 
-                        {libros.map(libro => (
-                          <>
-                            {libro.autorId === autorId ? (<SelectItem key={libro.id} value={libro.id}>{libro.titulo}</SelectItem>
-                            ) : null}
-                          </>
-                        ))}
+                        {libros.length > 0 ? (<>
+                          {libros.map(libro => (
+                            <>
+                              {libro.autorId === autorId ? (<SelectItem key={libro.id} value={libro.id}>{libro.titulo}</SelectItem>
+                              ) : null}
+                            </>
+                          ))}
+                        </>) : (<>
+                          {autorId !== "" ? (<>
+                            <p className="text-center text-sm p-2">Este autor no tiene libros</p>
+                          </>) : (<>
+                            <p className="text-center text-sm p-2">Seleccione un autor</p>
+                          </>)}
+
+                        </>)}
+
 
                       </SelectContent>
                     </Select>
