@@ -22,7 +22,7 @@ import { Input } from "@/components/ui/input"
 import { AutorSchema } from "@/schema"
 import { useAutoresStore } from "@/store/autores"
 import toast from "react-hot-toast"
-import { UserRoundPen } from "lucide-react"
+import {  UserRoundPen } from "lucide-react"
 
 
 export function FormAutores() {
@@ -80,10 +80,14 @@ export function FormAutores() {
             </AlertDialogTrigger>
             <AlertDialogContent className='overflow-y-auto'>
                 <AlertDialogHeader>
-                    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                    <AlertDialogTitle> <div className="flex flex-row items-center">
+                        <UserRoundPen className="size-10 p-2" />
+                        <p className="font-bold">
+                            Añade un autor
+                        </p>
+                    </div></AlertDialogTitle>
                     <AlertDialogDescription>
-                        This action cannot be undone. This will permanently delete your account
-                        and remove your data from our servers.
+                        Para añadir un autor necesitas escribir su nombre
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <Form {...form}>
@@ -102,8 +106,8 @@ export function FormAutores() {
                         />
 
                         <div className='grid grid-cols-2 gap-2'>
-                            <Button >Añadir Autores</Button>
-                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <Button >Añadir</Button>
+                            <AlertDialogCancel>Cancelar</AlertDialogCancel>
                         </div>
                     </form>
                 </Form>

@@ -4,6 +4,7 @@ import { useAutoresStore } from "@/store/autores"
 import { useCitasStore } from "@/store/citas"
 import toast from "react-hot-toast"
 import { AlertDelete } from "../alert-delete"
+import { CircleUserRound } from "lucide-react"
 
 export default function Autor() {
     const { id } = useParams()
@@ -15,6 +16,7 @@ export default function Autor() {
     const initCitas = useCitasStore((state) => state.initCitas)
 
     const allLibros = libros.filter(libro => libro.autorId === id)
+    const autor = autores.find(autor => autor.id === id)
 
     const navigate = useNavigate()
 
@@ -50,17 +52,23 @@ export default function Autor() {
     }
 
     return (
-        <div>Autor
-            <AlertDelete title="¿Quieres borrar este Autor?" description="Al borrar un autor también borraras todos sus libros y citas" name="Borrar autor" handleDelete={handleDelete}/>
-                {allLibros.length > 0 ? (<>
-                    {allLibros.reverse().map(libro => (
-                        <Link key={libro.id} to={`/libros/${libro.id}/${libro.titulo}`}>
-                            <article >
-                                <h1>{libro.titulo}</h1>
-                            </article>
-                        </Link>
-                    ))}
-                </>) : (<p>Todavía no hay libros</p>)}
+        <div>
+            <div className="flex lg:flex-row flex-col lg:items-center items-start lg:justify-between gap-5 ">
+                <div className="flex flex-row items-center gap-5"> 
+                    <CircleUserRound className="size-10 p-2 rounded-full text-black bg-white" />
+                    <h1 className="text-3xl lg:text-4xl font-bold">Libros de {autor?.name}</h1>
+                </div>
+                <AlertDelete title="¿Quieres borrar este Autor?" description="Al borrar un autor también borraras todos sus libros y citas" name="Borrar autor" handleDelete={handleDelete} />
+            </div>
+            {allLibros.length > 0 ? (<>
+                {allLibros.reverse().map(libro => (
+                    <Link key={libro.id} to={`/libros/${libro.id}/${libro.titulo}`} >
+                        <article className="mt-5" >
+                            <h1>{libro.titulo}</h1>
+                        </article>
+                    </Link>
+                ))}
+            </>) : (<p className="mt-5">El autor no tiene ninguna libro todavía 📚</p>)}
 
         </div>
     )

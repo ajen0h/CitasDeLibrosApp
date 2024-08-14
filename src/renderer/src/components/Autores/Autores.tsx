@@ -11,7 +11,7 @@ export default function Autores() {
     const autores = useAutoresStore((state) => state.autores)
 
     return (
-        <main>Autores
+        <main>
             <FormAutores />
             <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
 

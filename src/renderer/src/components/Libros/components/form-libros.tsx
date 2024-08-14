@@ -24,7 +24,7 @@ import { useAutoresStore } from "@/store/autores"
 import { useLibrosStore } from "@/store/libros"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import toast from "react-hot-toast"
-import { BookType } from "lucide-react"
+import { BookMarked, BookType } from "lucide-react"
 
 
 export function FormLibros() {
@@ -86,10 +86,16 @@ export function FormLibros() {
             </AlertDialogTrigger>
             <AlertDialogContent className='overflow-y-auto'>
                 <AlertDialogHeader>
-                    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                    <AlertDialogTitle>
+                        <div className="flex flex-row items-center">
+                            <BookMarked className="size-10 p-2" />
+                            <p className="font-bold">
+                                Añade un libro
+                            </p>
+                        </div>
+                    </AlertDialogTitle>
                     <AlertDialogDescription>
-                        This action cannot be undone. This will permanently delete your account
-                        and remove your data from our servers.
+                        Para añadir un libro necesitas darle un título y seleccionar al autor que pertenece
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <Form {...form}>
@@ -100,7 +106,7 @@ export function FormLibros() {
                             render={({ field }) => (
                                 <FormItem>
                                     <FormControl>
-                                        <Input {...field} placeholder='Nombre del autor' />
+                                        <Input {...field} placeholder='Título del libro' />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -114,7 +120,7 @@ export function FormLibros() {
                                     <Select onValueChange={field.onChange} defaultValue={field.value} >
                                         <FormControl>
                                             <SelectTrigger>
-                                                <SelectValue placeholder="Selecciona Un Autor" />
+                                                <SelectValue placeholder="Selecciona un Autor" />
                                             </SelectTrigger>
                                         </FormControl>
                                         <SelectContent>
@@ -134,8 +140,8 @@ export function FormLibros() {
                         />
 
                         <div className='grid grid-cols-2 gap-2'>
-                            <Button >Añadir Libro</Button>
-                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <Button >Añadir</Button>
+                            <AlertDialogCancel>Cancelar</AlertDialogCancel>
                         </div>
                     </form>
                 </Form>

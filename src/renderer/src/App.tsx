@@ -15,6 +15,7 @@ import { FormAutores } from "./components/Autores/components/form-autores"
 import { FormLibros } from "./components/Libros/components/form-libros"
 import { Toaster } from "react-hot-toast"
 import { CardLibros } from "./components/Libros/components/cart-libros"
+import { Separator } from "./components/ui/separator"
 
 function App() {
   const initAutores = useAutoresStore((state) => state.initAutores)
@@ -57,7 +58,7 @@ function App() {
             <FormCitas />
             <FormAutores />
             <FormLibros />
-
+            <Separator />
             <Link to={`/`}>
               <section className={`${location.pathname === "/" ? 'text-black bg-white' : ''}  rounded-md p-2 hover:bg-white hover:text-black cursor-pointer transition-all`}>
                 <div className="flex flex-row text-sm font-bold gap-2 items-center">
@@ -89,7 +90,7 @@ function App() {
 
           </nav>
         </div>
-        <div className="px-10 bg-black/90 text-white overflow-y-auto" >
+        <div className="p-16 bg-black/90 text-white overflow-y-auto" >
 
           <Routes >
             <Route path="/" element={<Home />} />

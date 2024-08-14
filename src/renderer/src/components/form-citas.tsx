@@ -89,10 +89,14 @@ export function FormCitas() {
       </AlertDialogTrigger>
       <AlertDialogContent className='overflow-y-auto h-[500px]'>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogTitle> <div className="flex flex-row items-center">
+            <PenLine className="size-10 p-2" />
+            <p className="font-bold">
+              Añade una cita
+            </p>
+          </div></AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your account
-            and remove your data from our servers.
+            Para añadir una cita necesitas escribir el texto de la cita, añadir el número de página en la que se encuentra la cita y seleccionar el autor y el libro
           </AlertDialogDescription>
         </AlertDialogHeader>
         <Form {...form}>
@@ -185,8 +189,8 @@ export function FormCitas() {
               />
             </div>
             <div className='grid grid-cols-2 gap-2'>
-              <Button >Añadir Nota</Button>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <Button >Añadir</Button>
+              <AlertDialogCancel>Cancelar</AlertDialogCancel>
             </div>
           </form>
         </Form>

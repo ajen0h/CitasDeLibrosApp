@@ -1,7 +1,7 @@
 import { useAutoresStore } from "@/store/autores"
 import { useCitasStore } from "@/store/citas"
 import { useLibrosStore } from "@/store/libros"
-import { BookOpen, UserRoundPen } from "lucide-react"
+import { BookMarked, BookOpen, UserRoundPen } from "lucide-react"
 import { useParams } from "react-router-dom"
 import toast from "react-hot-toast"
 import { AlertDelete } from "../alert-delete"
@@ -68,12 +68,13 @@ export default function Libro() {
 
     return (
         <div>
-            <p className="font-bold text-2xl">
-                Citas del libro {params.titulo}
-            </p>
-
-            <AlertDelete name="Borrar Libro" title="¿Estas a punto de borrar este libro?" description="Al borrar el libro también se borrarán todas sus citas" handleDelete={handleDeleteLibro} />
-
+            <div className="flex lg:flex-row flex-col lg:items-center items-start lg:justify-between gap-5 ">
+                <div className="flex flex-row items-center gap-5"> 
+                    <BookMarked className="size-10 p-2 rounded-full text-black bg-white" />
+                    <h1 className="text-3xl lg:text-4xl font-bold">Libros de {params.titulo}</h1>
+                </div>
+            <AlertDelete name="Borrar libro" title="¿Estas a punto de borrar este libro?" description="Al borrar el libro también se borrarán todas sus citas" handleDelete={handleDeleteLibro} />
+            </div>
 
             <section className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
 
@@ -83,7 +84,7 @@ export default function Libro() {
                         const autor = libro ? autoresMap.get(libro.autorId) : null;
                         return (
                             <>
-                                <div key={cita.id} className="text-black rounded-xl shadow-xl p-4 flex flex-col justify-between gap-5 bg-slate-100">
+                                <div key={cita.id} className="mt-5 text-black rounded-xl shadow-xl p-4 flex flex-col justify-between gap-5 bg-slate-100">
                                     <p className="font-bold text-xl overflow-y-auto h-[135px] text-start">{cita.cita}</p>
                                     <div className=" flex justify-between items-center">
                                         <div>
@@ -100,7 +101,7 @@ export default function Libro() {
                     })}
 
 
-                </>) : (<p>Este libro todavía no tiene ninguna cita!</p>)}
+                </>) : (<p className="mt-5">Este libro todavía no tiene ninguna cita ✒</p>)}
 
             </section>
         </div>
